@@ -1,9 +1,9 @@
 let users = {
   sarahedo: {
     id: 'sarahedo',
-    password:'password123',
+    password: 'password123',
     name: 'Sarah Edo',
-    avatarURL: null,
+    avatarURL: 'https://cdn-icons.flaticon.com/png/512/2042/premium/2042915.png?token=exp=1658499354~hmac=5100d63b91f10c6e9a4ddccbea63b493',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionOne',
@@ -14,9 +14,9 @@ let users = {
   },
   tylermcginnis: {
     id: 'tylermcginnis',
-    password:'abc321',
+    password: 'abc321',
     name: 'Tyler McGinnis',
-    avatarURL: null,
+    avatarURL: 'https://cdn-icons.flaticon.com/png/512/2042/premium/2042901.png?token=exp=1658499316~hmac=ad2baf95533ed923016436caf6d97b3f',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -25,9 +25,9 @@ let users = {
   },
   mtsamis: {
     id: 'mtsamis',
-    password:'xyz123',
+    password: 'xyz123',
     name: 'Mike Tsamis',
-    avatarURL: null,
+    avatarURL: 'https://cdn-icons-png.flaticon.com/512/147/147142.png',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -37,9 +37,9 @@ let users = {
   },
   zoshikanlu: {
     id: 'zoshikanlu',
-    password:'pass246',
+    password: 'pass246',
     name: 'Zenobia Oshikanlu',
-    avatarURL: null,
+    avatarURL: 'https://cdn-icons-png.flaticon.com/512/147/147144.png',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
     },
@@ -128,23 +128,23 @@ let questions = {
   },
 }
 
-function generateUID () {
+function generateUID() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-export function _getUsers () {
+export function _getUsers() {
   return new Promise((resolve) => {
-    setTimeout(() => resolve({...users}), 1000)
+    setTimeout(() => resolve({ ...users }), 1000)
   })
 }
 
-export function _getQuestions () {
+export function _getQuestions() {
   return new Promise((resolve) => {
-    setTimeout(() => resolve({...questions}), 1000)
+    setTimeout(() => resolve({ ...questions }), 1000)
   })
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
+function formatQuestion({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),
@@ -160,7 +160,7 @@ function formatQuestion ({ optionOneText, optionTwoText, author }) {
   }
 }
 
-export function _saveQuestion (question) {
+export function _saveQuestion(question) {
   return new Promise((resolve, reject) => {
     if (!question.optionOneText || !question.optionTwoText || !question.author) {
       reject("Please provide optionOneText, optionTwoText, and author");
@@ -178,7 +178,7 @@ export function _saveQuestion (question) {
   })
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   return new Promise((resolve, reject) => {
     if (!authedUser || !qid || !answer) {
       reject("Please provide authedUser, qid, and answer");
