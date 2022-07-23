@@ -3,7 +3,7 @@ let users = {
     id: 'sarahedo',
     password: 'password123',
     name: 'Sarah Edo',
-    avatarURL: 'https://cdn-icons.flaticon.com/png/512/2042/premium/2042915.png?token=exp=1658499354~hmac=5100d63b91f10c6e9a4ddccbea63b493',
+    avatarURL: "https://tylermcginnis.com/would-you-rather/sarah.jpg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionOne',
@@ -16,7 +16,7 @@ let users = {
     id: 'tylermcginnis',
     password: 'abc321',
     name: 'Tyler McGinnis',
-    avatarURL: 'https://cdn-icons.flaticon.com/png/512/2042/premium/2042901.png?token=exp=1658499316~hmac=ad2baf95533ed923016436caf6d97b3f',
+    avatarURL: "https://tylermcginnis.com/would-you-rather/tyler.jpg",
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -27,7 +27,7 @@ let users = {
     id: 'mtsamis',
     password: 'xyz123',
     name: 'Mike Tsamis',
-    avatarURL: 'https://cdn-icons-png.flaticon.com/512/147/147142.png',
+    avatarURL: "https://cdn-icons-png.flaticon.com/512/147/147142.png",
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -39,7 +39,7 @@ let users = {
     id: 'zoshikanlu',
     password: 'pass246',
     name: 'Zenobia Oshikanlu',
-    avatarURL: 'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+    avatarURL: "https://tylermcginnis.com/would-you-rather/dan.jpg",
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
     },

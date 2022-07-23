@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
 import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Questions = (props) => {
     return (
         <List sx={{ width: '100%', maxWidth: 360 }}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="user-avatar" src={props.userAvatar} />
+                    <Avatar alt="author-avatar" src={props.authorAvatar} />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={props.userName}
+                    primary={props.authorName}
                     secondary={
                         <Typography
                             sx={{ display: 'inline' }}
@@ -21,20 +22,21 @@ const Questions = (props) => {
                         </Typography>
                     }
                 />
-                {/* TODO --- Add Link to SelectOption with question id in url */}
-                < Button variant="outlined" size="large" style={{ marginLeft: '15px', marginTop: '15px' }}>Show</Button>
+                <Link to={`questions/${props.questionID}`}>
+                    < Button variant="outlined" size="large" sx={{ margin: 2 }}>Show</Button>
+                </Link>
             </ListItem>
             <Divider variant="inset" component="li" />
         </List>
     );
 }
 
-const stateToProps = ({ users, questions }, { questionID }) => {
-    const userName = questions[questionID].author;
-    const userAvatar = users[userName].avatarURL;
+const mapStateToProps = ({ users, questions }, { questionID }) => {
+    const authorName = questions[questionID].author;
+    const authorAvatar = users[authorName].avatarURL;
     const questionTimeStamp = new Date(questions[questionID].timestamp).toDateString();
 
-    return { userName, userAvatar, questionTimeStamp }
+    return { authorName, authorAvatar, questionTimeStamp }
 }
 
-export default connect(stateToProps)(Questions);
+export default connect(mapStateToProps)(Questions);
