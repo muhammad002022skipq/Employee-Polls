@@ -6,8 +6,8 @@ import users from "./users";
 import { loadingBarReducer } from "react-redux-loading-bar";
 
 export default combineReducers({
-    authedUser,
-    questions,
-    users,
-    loadingBar: loadingBarReducer,
+  authedUser,
+  questions,
+  users,
+  loadingBar: loadingBarReducer,
 });

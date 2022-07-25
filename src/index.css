@@ -15,3 +15,9 @@ code {
 .list-remove {
   list-style: none;
 }
+
+.box-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

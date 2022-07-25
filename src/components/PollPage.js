@@ -1,96 +1,122 @@
-import { connect } from 'react-redux';
-import { useState } from 'react';
-import { Box, Typography, Avatar, Button } from '@mui/material';
-import { handleSetQuestionAnswer } from '../actions/questions';
-import { useParams, Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import { useState } from "react";
+import { Divider, Box, Typography, Avatar, Button } from "@mui/material";
+import { handleSetQuestionAnswer } from "../actions/questions";
+import { useParams } from "react-router-dom";
+import NavBar from "./NavBar";
 
 const PollPage = ({ dispatch, authedUser, questions, users }) => {
-    const { questionID } = useParams();
-    const [showOptions, setShowOptions] = useState(!Object.keys(users[authedUser].answers).includes(questionID));
+  const { questionID } = useParams();
+  const authedUserAnswers = users[authedUser].answers;
+  const [showOptions, setShowOptions] = useState(
+    !Object.keys(authedUserAnswers).includes(questionID)
+  );
+  const pollQuestion = questions[questionID];
+  const pollAuthor = users[pollQuestion.author];
+  const alreadyAnsweredOption = authedUserAnswers[questionID];
+  const votesOptionOne = pollQuestion.optionOne.votes.length;
+  const votesOptionTwo = pollQuestion.optionTwo.votes.length;
+  const totalVotes = votesOptionOne + votesOptionTwo;
 
-    const pollAuthor = users[questions[questionID].author];
-    const pollQuestion = questions[questionID];
+  const handleClickOne = (e) => {
+    e.preventDefault();
+    dispatch(handleSetQuestionAnswer(authedUser, questionID, "optionOne"));
+    setShowOptions(false);
+  };
+  const handleClickTwo = (e) => {
+    e.preventDefault();
+    dispatch(handleSetQuestionAnswer(authedUser, questionID, "optionTwo"));
+    setShowOptions(false);
+  };
 
-    const alreadyAnsweredOption = users[authedUser].answers[questionID];
+  return (
+    <>
+      <NavBar />
+      <Typography variant="h5" align="center" color="textPrimary">
+        Poll by {pollAuthor.name}
+      </Typography>
+      <Box className="box-center">
+        <Avatar
+          sx={{ m: 3, height: 150, width: 150 }}
+          alt="author-avatar"
+          src={pollAuthor.avatarURL}
+        />
+      </Box>
 
-    const votesOptionOne = pollQuestion.optionOne.votes.length;
-    const votesOptionTwo = pollQuestion.optionTwo.votes.length;
-    const totalVotes = votesOptionOne + votesOptionTwo;
-
-    const handleClickOne = (e) => {
-        e.preventDefault();
-        dispatch(handleSetQuestionAnswer(authedUser, questionID, 'optionOne'));
-        setShowOptions(false);
-    }
-    const handleClickTwo = (e) => {
-        e.preventDefault();
-        dispatch(handleSetQuestionAnswer(authedUser, questionID, 'optionTwo'));
-        setShowOptions(false);
-    }
-
-
-    console.log("In Poll Page : ", alreadyAnsweredOption);
-    return (
-        <Box sx={{ marginTop: 5 }}>
-            <Link to="/"><strong>Home</strong></Link>
-            <Box display="flex"
-                justifyContent="center"
-                alignItems="center">
-                <Typography variant="h5" align="center" color="textPrimary"> Poll by {pollAuthor.name} </Typography>
-            </Box>
-            <Box display="flex"
-                justifyContent="center"
-                alignItems="center">
-                <Avatar sx={{ margin: 3, height: 150, width: 150 }} alt="author-avatar" src={pollAuthor.avatarURL} />
-            </Box>
-
-            {showOptions && (
-                <Box>
-                    <Box display="flex"
-                        justifyContent="center"
-                        alignItems="center">
-                        <Typography variant="h5" align="center" color="textPrimary"> Would You Rather </Typography>
-                    </Box>
-                    <Box display="flex"
-                        justifyContent="center"
-                        alignItems="center">
-                        < Button onClick={handleClickOne} variant="outlined" size="large" sx={{ margin: 5 }}>{(pollQuestion.optionOne.text)}</Button>
-                        < Button onClick={handleClickTwo} variant="outlined" size="large" sx={{ margin: 5 }}>{(pollQuestion.optionTwo.text)}</Button>
-                    </Box>
-                </Box>
-            )}
-            {!showOptions && (
-                <Box>
-                    <Typography variant="h4" align="center" color="textPrimary"> You answered : {((alreadyAnsweredOption === 'optionOne' && pollQuestion.optionOne.text) || (alreadyAnsweredOption === 'optionTwo' && pollQuestion.optionTwo.text))} </Typography>
-                    <Box display="flex"
-                        justifyContent="center"
-                        alignItems="center">
-                        <Typography sx={{ margin: 7 }} variant="h5" color="textSecondary"> Option One : {(pollQuestion.optionOne.text)}  </Typography>
-                        <Typography variant="h5" color="textSecondary"> Option Two : {(pollQuestion.optionTwo.text)}  </Typography>
-                    </Box>
-                    <Box display="flex"
-                        justifyContent="center"
-                        alignItems="center">
-                        <Typography sx={{ marginRight: 15 }} variant="h5" color="textSecondary"> {votesOptionOne} Selected Option One  </Typography>
-                        <Typography sx={{ marginLeft: 10 }} variant="h5" color="textSecondary"> {votesOptionTwo} Selected Option Two  </Typography>
-                    </Box>
-                    <Box display="flex"
-                        justifyContent="center"
-                        alignItems="center">
-                        <Typography sx={{ marginTop: 3, marginRight: 15 }} variant="h5" color="textSecondary"> {(parseFloat((votesOptionOne / totalVotes) * 100).toFixed(2))}% Selected Option One  </Typography>
-                        <Typography sx={{ marginLeft: 10 }} variant="h5" color="textSecondary"> {(parseFloat((votesOptionTwo / totalVotes) * 100).toFixed(2))}% Selected Option Two  </Typography>
-                    </Box>
-                </Box>
-            )}
-        </Box >
-    )
-}
+      {showOptions && (
+        <>
+          <Typography variant="h5" align="center" color="textPrimary">
+            Would You Rather
+          </Typography>
+          <Box className="box-center">
+            <Button
+              onClick={handleClickOne}
+              variant="outlined"
+              size="large"
+              sx={{ m: 5 }}
+            >
+              {pollQuestion.optionOne.text}
+            </Button>
+            <Button
+              onClick={handleClickTwo}
+              variant="outlined"
+              size="large"
+              sx={{ m: 5 }}
+            >
+              {pollQuestion.optionTwo.text}
+            </Button>
+          </Box>
+        </>
+      )}
+      {!showOptions && (
+        <>
+          <Typography variant="h3" align="center" color="textPrimary">
+            {(alreadyAnsweredOption === "optionOne" &&
+              pollQuestion.optionOne.text) ||
+              (alreadyAnsweredOption === "optionTwo" &&
+                pollQuestion.optionTwo.text)}
+          </Typography>
+          <Divider sx={{ mt: 3, mx: 7 }} />
+          <Box className="box-center" sx={{ mt: 4 }}>
+            <Typography sx={{ mr: 5 }} variant="h5" color="textSecondary">
+              {pollQuestion.optionOne.text}
+            </Typography>
+            <Divider orientation="vertical" flexItem />
+            <Typography sx={{ ml: 5 }} variant="h5" color="textSecondary">
+              {pollQuestion.optionTwo.text}
+            </Typography>
+          </Box>
+          <Box className="box-center" sx={{ mt: 4 }}>
+            <Typography sx={{ mr: 5 }} variant="h5" color="textSecondary">
+              {votesOptionOne} Voted for Option One
+            </Typography>
+            <Divider orientation="vertical" flexItem />
+            <Typography sx={{ ml: 5 }} variant="h5" color="textSecondary">
+              {votesOptionTwo} Voted for Option Two
+            </Typography>
+          </Box>
+          <Box className="box-center" sx={{ mt: 4 }}>
+            <Typography sx={{ mr: 5 }} variant="h5" color="textSecondary">
+              {parseFloat((votesOptionOne / totalVotes) * 100).toFixed(2)}%
+              Voted for Option One
+            </Typography>
+            <Divider orientation="vertical" flexItem />
+            <Typography sx={{ ml: 5 }} variant="h5" color="textSecondary">
+              {parseFloat((votesOptionTwo / totalVotes) * 100).toFixed(2)}%
+              Voted for Option Two
+            </Typography>
+          </Box>
+        </>
+      )}
+    </>
+  );
+};
 const mapStateToProps = ({ authedUser, questions, users }) => {
-    return {
-        authedUser,
-        questions,
-        users,
-    }
-}
+  return {
+    authedUser,
+    questions,
+    users,
+  };
+};
 
 export default connect(mapStateToProps)(PollPage);

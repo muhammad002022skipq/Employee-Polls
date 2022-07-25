@@ -1,13 +1,22 @@
-import { Link } from "react-router-dom";
-const NotFound = () => {
-    return (
-        <div>
-            <h1>404</h1>
-            <h2>Page Not Found</h2>
-            <Link to="/login"> Go to Login Page</Link>
-        </div>
-    );
+import NavBar from "./NavBar";
+import { Box, Typography } from "@mui/material";
+import BlockIcon from "@mui/icons-material/Block";
 
-}
+const NotFound = () => {
+  return (
+    <>
+      <NavBar />
+      <Box className="box-center">
+        <BlockIcon sx={{ fontSize: 200 }} />
+      </Box>
+      <Typography variant="h1" align="center" color="textPrimary">
+        404
+      </Typography>
+      <Typography variant="h3" align="center" color="textSecondary">
+        Page Not Found
+      </Typography>
+    </>
+  );
+};
 
 export default NotFound;
