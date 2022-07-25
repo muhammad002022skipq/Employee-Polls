@@ -42,7 +42,7 @@ const Questions = (props) => {
           </Button>
         </Link>
       </ListItem>
-      <Divider />
+      <Divider sx={{ mr: 4, my: 2 }} />
     </List>
   );
 };
