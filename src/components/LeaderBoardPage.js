@@ -23,8 +23,7 @@ const LeaderBoardPage = ({ users }) => {
       answered: Object.keys(user.answers).length,
       created: user.questions.length,
     }))
-    .sort((a, b) => a.answered + a.created - (b.answered + b.created))
-    .reverse();
+    .sort((a, b) => b.answered + b.created - (a.answered + a.created));
 
   return (
     <>

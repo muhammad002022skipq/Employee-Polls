@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { useState } from "react";
 import { Divider, Box, Typography, Avatar, Button } from "@mui/material";
 import { handleSetQuestionAnswer } from "../actions/questions";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import NavBar from "./NavBar";
 
 const PollPage = ({ dispatch, authedUser, questions, users }) => {
@@ -12,6 +12,9 @@ const PollPage = ({ dispatch, authedUser, questions, users }) => {
     !Object.keys(authedUserAnswers).includes(questionID)
   );
   const pollQuestion = questions[questionID];
+  if (pollQuestion === undefined) {
+    return <Navigate to="/404" replace={true} />;
+  }
   const pollAuthor = users[pollQuestion.author];
   const alreadyAnsweredOption = authedUserAnswers[questionID];
   const votesOptionOne = pollQuestion.optionOne.votes.length;
