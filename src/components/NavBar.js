@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { Typography, AppBar, Toolbar, Button, Avatar } from "@mui/material";
 import { setAuthedUser } from "../actions/authedUser";
 import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const NavBar = ({ authedUser, dispatch }) => {
   const navigate = useNavigate();
@@ -47,5 +48,10 @@ const NavBar = ({ authedUser, dispatch }) => {
 const mapStateToProps = ({ users, authedUser }) => ({
   authedUser: users[authedUser],
 });
+
+NavBar.propTypes = {
+  authedUser: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps)(NavBar);

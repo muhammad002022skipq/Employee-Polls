@@ -14,8 +14,9 @@ import {
   Button,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import PropTypes from "prop-types";
 
-const Login = (props) => {
+const Login = ({ dispatch, users }) => {
   const [user, setUser] = useState("");
   const [error, setError] = useState(false);
 
@@ -27,7 +28,7 @@ const Login = (props) => {
 
   const handleClick = () => {
     if (user) {
-      props.dispatch(setAuthedUser(user));
+      dispatch(setAuthedUser(user));
       if (window.location.pathname === "/") {
         navigate("/");
       }
@@ -69,7 +70,7 @@ const Login = (props) => {
             onChange={handleChange}
             label="User"
           >
-            {props.users.map((uid) => (
+            {users.map((uid) => (
               <MenuItem key={uid} value={uid}>
                 {uid}
               </MenuItem>
@@ -94,6 +95,11 @@ const Login = (props) => {
 
 function mapStateToProps({ users }) {
   return { users: Object.keys(users) };
+}
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  users: PropTypes.array.isRequired,
 }
 
 export default connect(mapStateToProps)(Login);

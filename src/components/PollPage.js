@@ -4,6 +4,7 @@ import { Divider, Box, Typography, Avatar, Button } from "@mui/material";
 import { handleSetQuestionAnswer } from "../actions/questions";
 import { useParams, Navigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import PropTypes from "prop-types";
 
 const PollPage = ({ dispatch, authedUser, questions, users }) => {
   const { questionID } = useParams();
@@ -121,5 +122,12 @@ const mapStateToProps = ({ authedUser, questions, users }) => {
     users,
   };
 };
+
+PollPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  authedUser: PropTypes.string.isRequired,
+  questions: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
+}
 
 export default connect(mapStateToProps)(PollPage);

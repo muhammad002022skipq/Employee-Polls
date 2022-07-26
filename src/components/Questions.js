@@ -10,20 +10,21 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Questions = (props) => {
+const Questions = ({ question, authorName, authorAvatar, questionTimeStamp, questionID }) => {
   return (
     <List>
       <ListItem>
         <ListItemAvatar>
-          <Avatar alt="author-avatar" src={props.authorAvatar} />
+          <Avatar alt="author-avatar" src={authorAvatar} />
         </ListItemAvatar>
         <ListItemText
-          primary={props.authorName}
-          secondary={props.questionTimeStamp}
+          primary={authorName}
+          secondary={questionTimeStamp}
         />
         <Typography variant="h6" align="left" color="textSecondary">
-          {props.question.optionOne.text}
+          {question.optionOne.text}
         </Typography>
         <Typography
           variant="h6"
@@ -34,9 +35,9 @@ const Questions = (props) => {
           OR
         </Typography>
         <Typography variant="h6" align="right" color="textSecondary">
-          {props.question.optionTwo.text}
+          {question.optionTwo.text}
         </Typography>
-        <Link to={`questions/${props.questionID}`}>
+        <Link to={`questions/${questionID}`}>
           <Button variant="contained" size="large" sx={{ mx: 5 }}>
             Show
           </Button>
@@ -57,5 +58,12 @@ const mapStateToProps = ({ users, questions }, { questionID }) => {
 
   return { question, authorName, authorAvatar, questionTimeStamp };
 };
+
+Questions.propTypes = {
+  question: PropTypes.object.isRequired,
+  authorName: PropTypes.string.isRequired,
+  authorAvatar: PropTypes.string.isRequired,
+  questionID: PropTypes.string.isRequired,
+}
 
 export default connect(mapStateToProps)(Questions);

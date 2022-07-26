@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import LoadingBar from "react-redux-loading-bar";
 import { Routes, Route } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
@@ -11,15 +11,15 @@ import PollPage from "./PollPage";
 import LeaderBoardPage from "./LeaderBoardPage";
 import NewPoll from "./NewPoll";
 
-function App(props) {
+function App({ loading, dispatch }) {
   useEffect(() => {
-    props.dispatch(handleInitialData());
-  }, []);
+    dispatch(handleInitialData());
+  }, [dispatch]);
   return (
     <div className="App">
       <LoadingBar />
 
-      {props.loading === true ? (
+      {loading === true ? (
         <Login />
       ) : (
         <Routes>
@@ -36,5 +36,10 @@ function App(props) {
 const mapStateToProps = ({ authedUser }) => ({
   loading: authedUser === null,
 });
+
+App.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps)(App);

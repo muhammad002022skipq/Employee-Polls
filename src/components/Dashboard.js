@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Box, Switch, Typography } from "@mui/material";
 import Questions from "./Questions";
 import NavBar from "./NavBar";
+import PropTypes from "prop-types";
+
 const Dashboard = ({ authedUser, users, questions }) => {
   const [showUnAns, setShowUnAns] = useState(true);
   const user = users[authedUser];
@@ -68,5 +70,11 @@ const Dashboard = ({ authedUser, users, questions }) => {
 };
 
 const mapStateToProps = (state) => state;
+
+Dashboard.propTypes = {
+  authedUser: PropTypes.string.isRequired,
+  users: PropTypes.object.isRequired,
+  questions: PropTypes.object.isRequired,
+}
 
 export default connect(mapStateToProps)(Dashboard);

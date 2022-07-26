@@ -1,6 +1,7 @@
 import NavBar from "./NavBar";
 import { Box, Typography } from "@mui/material";
 import BlockIcon from "@mui/icons-material/Block";
+import PropTypes from "prop-types";
 
 const NotFound = () => {
   return (

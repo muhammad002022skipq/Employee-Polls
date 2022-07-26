@@ -2,18 +2,18 @@ import { _saveQuestion, _saveQuestionAnswer } from "../utils/_DATA";
 
 describe("Test for _saveQuestion", () => {
   it("verify that the saved question is returned", async () => {
-    let question = {
+    const question = {
       optionOneText: "Demo option one",
       optionTwoText: "Demo option two",
       author: "demouser",
     };
-    let results = await _saveQuestion(question);
+    const results = await _saveQuestion(question);
     expect(results.optionOne.text).toEqual(question.optionOneText);
     expect(results.optionTwo.text).toEqual(question.optionTwoText);
     expect(results.author).toEqual(question.author);
   });
   it("verify that an error is returned for incorrect data", async () => {
-    let question = {
+    const question = {
       optionOneText: "Demo option one",
       author: "demouser",
     };
@@ -25,16 +25,16 @@ describe("Test for _saveQuestion", () => {
 
 describe("Test for _saveQuestionAnswer", () => {
   it("verify that the true is returned for correct data", async () => {
-    let data = {
+    const data = {
       answer: "optionTwo",
       qid: "loxhs1bqm25b708cmbf3g",
       authedUser: "tylermcginnis",
     };
-    let results = await _saveQuestionAnswer(data);
+    const results = await _saveQuestionAnswer(data);
     expect(results).toEqual(true);
   });
   it("verify that an error is returned for incorrect data", async () => {
-    let data = {
+    const data = {
       answer: "optionTest",
       qid: "testid",
     };

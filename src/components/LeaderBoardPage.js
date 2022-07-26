@@ -13,6 +13,7 @@ import {
   ListItemAvatar,
   Avatar,
 } from "@mui/material";
+import PropTypes from "prop-types";
 
 const LeaderBoardPage = ({ users }) => {
   const orderedUsers = Object.values(users)
@@ -62,4 +63,9 @@ const LeaderBoardPage = ({ users }) => {
 };
 
 const mapStateToProps = ({ users }) => ({ users });
+
+LeaderBoardPage.propTypes = {
+  users: PropTypes.object.isRequired,
+}
+
 export default connect(mapStateToProps)(LeaderBoardPage);

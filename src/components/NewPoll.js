@@ -4,6 +4,7 @@ import { Box, Typography, Container, TextField, Button } from "@mui/material";
 import NavBar from "./NavBar";
 import { handleSetNewQuestion } from "../actions/questions";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const NewPoll = ({ dispatch, authedUser }) => {
   const navigate = useNavigate();
@@ -77,4 +78,10 @@ const mapStateToProps = ({ dispatch, authedUser }) => ({
   dispatch,
   authedUser,
 });
+
+NewPoll.propTypes = {
+  authedUser: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
+
 export default connect(mapStateToProps)(NewPoll);
